@@ -36,6 +36,37 @@
             <artifactId>jooq-codegen</artifactId>
             <version>${jooq.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.1.1-jre</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>8.9.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-analyzers-common -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>8.9.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -60,23 +91,10 @@
                 </executions>
             </plugin>
             <plugin>
-
-                <!-- Specify the maven code generator plugin -->
-                <!-- Use org.jooq                for the Open Source Edition
-                         org.jooq.pro            for commercial editions with Java 17 support,
-                         org.jooq.pro-java-11    for commercial editions with Java 11 support,
-                         org.jooq.pro-java-8     for commercial editions with Java 8 support,
-                         org.jooq.trial          for the free trial edition with Java 17 support,
-                         org.jooq.trial-java-11  for the free trial edition with Java 11 support,
-                         org.jooq.trial-java-8   for the free trial edition with Java 8 support
-
-                     Note: Only the Open Source Edition is hosted on Maven Central.
-                           Import the others manually from your distribution -->
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
                 <version>${jooq.version}</version>
 
-                <!-- The plugin should hook into the generate goal -->
                 <executions>
                     <execution>
                         <goals>
@@ -85,7 +103,6 @@
                     </execution>
                 </executions>
 
-                <!-- Manage the plugin's dependency. In this example, we'll use a PostgreSQL database -->
                 <dependencies>
                     <dependency>
                         <groupId>org.postgresql</groupId>
@@ -93,28 +110,18 @@
                         <version>${postgresql.version}</version>
                     </dependency>
                 </dependencies>
-
-                <!-- Specify the plugin configuration.
-                     The configuration format is the same as for the standalone code generator -->
                 <configuration>
-
-                    <!-- JDBC connection parameters -->
                     <jdbc>
                         <driver>org.postgresql.Driver</driver>
                         <url>jdbc:postgresql://localhost:5432/ttrss</url>
                         <user>postgres</user>
                         <password>example</password>
                     </jdbc>
-
-                    <!-- Generator parameters -->
                     <generator>
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
                             <excludes/>
-                            <!-- In case your database supports catalogs, e.g. SQL Server:
-                            <inputCatalog>public</inputCatalog>
-                              -->
                             <inputSchema>public</inputSchema>
                         </database>
                         <target>
